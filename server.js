@@ -21,7 +21,7 @@ const app = express();
 // ========= Middlewares =================
 app.use(morgan('dev')); // logger
 app.use(express.json()); // body parser
-app.use(cors({origin: "http://localhost:5173"}));
+app.use(cors({origin: process.env.FRONTEND_URL}));
 
 // ========= Routes ======================
 app.use('/api/users', require('./routes/userRoutes'));
