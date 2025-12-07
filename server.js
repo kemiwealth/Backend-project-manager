@@ -21,7 +21,7 @@ const app = express();
 // ========= Middlewares =================
 app.use(morgan('dev')); // logger
 app.use(express.json()); // body parser
-app.use(cors({origin: process.env.FRONTEND_URL}));
+app.use(cors({origin: [ process.env.FRONTEND_URL, "http://localhost:5173", "https://backend-project-manager-4934.onrender.com"], credentials: true,}));
 
 // ========= Routes ======================
 app.use('/api/users', require('./routes/userRoutes'));
