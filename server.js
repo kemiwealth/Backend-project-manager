@@ -16,12 +16,26 @@ mongoose.connect(process.env.MONGO_URI)
 
 const PORT = process.env.PORT || 4000;
 const app = express();
+const allowedOrigins = [
+  process.env.FRONTEND_URL,                 // deployed frontend
+  "http://localhost:5173"                   // local frontend for development
+];
 
 
 // ========= Middlewares =================
 app.use(morgan('dev')); // logger
 app.use(express.json()); // body parser
-app.use(cors({origin: [ process.env.FRONTEND_URL, "http://localhost:5173", "https://backend-project-manager-4934.onrender.com"], credentials: true,}));
+// app.use(cors({origin: [ process.env.FRONTEND_URL, "http://localhost:5173", "https://backend-project-manager-4934.onrender.com"], credentials: true,}));
+app.use(cors({
+  origin: function(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+}));
 
 // ========= Routes ======================
 app.use('/api/users', require('./routes/userRoutes'));
