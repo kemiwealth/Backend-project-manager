@@ -76,13 +76,14 @@ const app = express();
 
 // Allowed origins
 const allowedOrigins = [
-  process.env.FRONTEND_URL,   // deployed frontend
-  "http://localhost:5173"     // local dev frontend
+  "https://kw-frontend-project-manager.netlify.app",
+  "http://localhost:5173",
 ];
 
 // ========== Middlewares ==========
 app.use(morgan('dev'));
 app.use(express.json());
+
 
 // CORS middleware
 app.use(cors({
