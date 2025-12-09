@@ -77,7 +77,7 @@ const app = express();
 // Allowed origins
 const allowedOrigins = [
   "https://kw-frontend-project-manager.netlify.app",
-  "http://localhost:5173",
+  "http://localhost:5173"
 ];
 
 // ========== Middlewares ==========
@@ -86,17 +86,24 @@ app.use(express.json());
 
 
 // CORS middleware
-app.use(cors({
-  origin: function (origin, callback) {
-    // allow requests with no origin (like Postman)
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true, // allow cookies
-}));
+// app.use(cors({
+//   origin: function (origin, callback) {
+//     // allow requests with no origin (like Postman)
+//     if (!origin || allowedOrigins.includes(origin)) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error("Not allowed by CORS"));
+//     }
+//   },
+//   credentials: true, // allow cookies
+// }));
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  })
+);
 
 // ========== Routes ==========
 app.use('/api/users', userRoutes);
