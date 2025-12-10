@@ -36,9 +36,11 @@ async function verifyOwnership(req, res, next) {
  */
 router.post("/projects/:projectId/tasks", verifyOwnership, async (req, res) => {
   try {
+
     const task = await Task.create({
       ...req.body,
       project: req.project._id,
+      user: req.user._id
     });
 
     res.status(201).json(task);
