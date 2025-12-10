@@ -84,20 +84,6 @@ const allowedOrigins = [
 app.use(morgan('dev'));
 app.use(express.json());
 
-
-// CORS middleware
-// app.use(cors({
-//   origin: function (origin, callback) {
-//     // allow requests with no origin (like Postman)
-//     if (!origin || allowedOrigins.includes(origin)) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error("Not allowed by CORS"));
-//     }
-//   },
-//   credentials: true, // allow cookies
-// }));
-
 app.use(
   cors({
     origin: allowedOrigins,
